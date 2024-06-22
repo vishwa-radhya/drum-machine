@@ -1,0 +1,182 @@
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap');
+@mixin flex-center-center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+@mixin reuse-border{
+    border: 1px solid rgb(26, 71, 204);
+}
+@mixin bx-shad($x,$y,$t,$c){
+    box-shadow: $x $y $t $c;
+}
+
+$font:"Rajdhani", sans-serif;
+
+*{
+    margin: 0;
+}
+html{
+    box-sizing: border-box;
+    font-size: 62.5%;
+}
+body{
+    background-color: black;
+}
+#root{
+    height: 99vh;
+    width: 99vw;
+    @include flex-center-center;
+    background-color: black;
+    #drum-machine{
+        border: 3px solid rgb(0, 0, 0);
+        width: min(650px,95vw);
+        height: min(300px,90vh);
+        display: flex;
+        flex-direction: row;
+        .drum-pad-container{
+            width: 60%;
+            @include flex-center-center;
+
+            .pad-wrapper{
+                width: 85%;
+                height: 85%;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                padding: 5px;
+
+                .drum-pad{
+                    width: min(8.5rem,10vw);
+                    height: min(6.5rem,10vw);
+                    margin-right: 10px;
+                    border-radius: 10px;
+                    outline: none;
+                    font-size: min(3rem,3vw);
+                    font-family: "Rajdhani", sans-serif;
+                    font-weight: 500;
+                    @include bx-shad(2px,2px,2px,rgb(127, 179, 238));
+                    cursor: pointer;
+                    background-color: rgb(31, 83, 148);
+                    color: ghostwhite
+                }
+            }
+        }
+
+        .controls-container{
+            flex: 1;
+            @include flex-center-center;
+            flex-direction: column;
+            gap: 20px;
+        }
+    }
+    
+}
+
+#display{
+    @include reuse-border;
+    background-color: #2196F3;
+    width: 15rem;
+    height: 5rem;
+    color: ghostwhite;
+    border-radius: 5px;
+    @include flex-center-center;
+    font-size: 2rem;
+    font-weight: 500;
+    font-family: $font;
+    @include bx-shad(2px,2px,1px,rgb(127, 179, 238) );
+}
+
+input[type="range"] +p{
+    @include flex-center-center;
+    width: 7rem;
+    height: 2rem;
+    font-size: 1.6rem;
+    font-family: $font;
+    font-weight: 500;
+    color: ghostwhite;
+}
+input[type="range"]{
+    cursor: pointer;
+    -webkit-appearance: none;
+    &::-webkit-slider-runnable-track{
+        background-color: #2196F3;
+        // width: 20px;
+        height: 7px;
+        @include bx-shad(1px,2px,1px,rgb(127, 179, 238));
+    }
+    &::-webkit-slider-thumb{
+        height: 25px;
+        width: 10px;
+        margin-top: -9.5px;
+        background-color: rgb(224, 30, 30);
+        @include bx-shad(1.5px,1.5px ,1px ,rgb(221, 105, 105) );
+        -webkit-appearance: none;
+    }
+}
+
+.power-div{
+    border: 1px solid;
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+    @include bx-shad(1px,1px ,0.7px ,rgb(127, 179, 238));
+
+    input{
+        opacity: 0;
+        width: 0;
+        height: 0;
+        outline: none;
+    }
+    .slider{
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #312f2f;
+        transition: .2s ease;
+
+        &::before{
+            position: absolute;
+            content: '';
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: #ccc;
+            transition: .2s ease;
+        }
+    }
+    input:checked + .slider{
+        background-color: #2196F3;
+    }
+    input:checked + .slider:before{
+        transform: translateX(26px);
+    }
+    
+}
+
+
+@media screen and (max-width:650px) {
+    #drum-machine{
+        transform: rotateZ(90deg);
+    }
+}
+@media screen and (max-width:450px){
+    #drum-machine{
+        transform: rotateZ(90deg);
+        scale:1.4 ;
+    }
+    .controls-container{
+        transform:scale(0.7) ;
+    }
+}
+@media screen and (max-width:350px){
+    #drum-machine{
+        transform: rotateZ(90deg);
+        scale:1.1;
+    }
+}
